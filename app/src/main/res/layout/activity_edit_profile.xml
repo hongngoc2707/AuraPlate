@@ -1,8 +1,187 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/screen_bg"
+    android:fillViewport="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <ImageButton
+            android:id="@+id/btnBackEditProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/card_bg"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:text="Chỉnh sửa hồ sơ"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBackEditProfile"
+            app:layout_constraintStart_toEndOf="@+id/btnBackEditProfile"
+            app:layout_constraintTop_toTopOf="@+id/btnBackEditProfile" />
+
+        <!-- Avatar & Name -->
+        <TextView
+            android:id="@+id/tvAvatarEmoji"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/bg_circle_button"
+            android:backgroundTint="@color/primary_green_light"
+            android:gravity="center"
+            android:text="👤"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBackEditProfile" />
+
+        <!-- Họ tên -->
+        <TextView
+            android:id="@+id/lblEditName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Họ và tên"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAvatarEmoji" />
+
+        <EditText
+            android:id="@+id/edtEditName"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input_field"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/lblEditName" />
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/lblEditEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Email"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtEditName" />
+
+        <EditText
+            android:id="@+id/edtEditEmail"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_input_field"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/lblEditEmail" />
+
+        <!-- Chiều cao & Cân nặng -->
+        <LinearLayout
+            android:id="@+id/layoutEditBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/edtEditEmail">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chiều cao (cm)"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtEditHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_input_field"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cân nặng (kg)"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtEditWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_input_field"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Button Lưu -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveProfile"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="24dp"
+            android:text="Lưu thay đổi"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/primary_green"
+            app:cornerRadius="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutEditBody" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
