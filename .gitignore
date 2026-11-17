@@ -14,3 +14,5 @@
 .cxx
 local.properties
 create_git_branches.ps1
+
+.idea/
