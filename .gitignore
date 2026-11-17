@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
+create_git_branches.ps1
