@@ -12,27 +12,73 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AuraPlate">
 
+        <!-- 01_Splash (Launcher) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.splash.SplashActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- UI Activities -->
-        <activity android:name=".ui.splash.SplashActivity" android:exported="false" />
-        <activity android:name=".ui.auth.LoginActivity" android:exported="false" />
-        <activity android:name=".ui.auth.RegisterActivity" android:exported="false" />
-        <activity android:name=".ui.profile.EditProfileActivity" android:exported="false" />
-        <activity android:name=".ui.goal.GoalSettingActivity" android:exported="false" />
-        <activity android:name=".ui.food.AddFoodActivity" android:exported="false" />
-        <activity android:name=".ui.exercise.AddExerciseActivity" android:exported="false" />
-        <activity android:name=".ui.goal.WeightProgressActivity" android:exported="false" />
-        <activity android:name=".ui.goal.GoalEvaluationActivity" android:exported="false" />
+        <!-- Main Dashboard Navigation -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- 02_DangNhap & 03_DangKy -->
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.auth.RegisterActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- 04_ThietLapHoSo & 04_ChinhSuaHoSo -->
+        <activity
+            android:name=".ui.profile.SetupProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.profile.EditProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- 06_MucTieuCanNang, 11_TienDoCanNang, 12_DanhGiaTienDo -->
+        <activity
+            android:name=".ui.goal.GoalSettingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.goal.WeightProgressActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.goal.GoalEvaluationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 08_ThemMonAn & 10_ThemVanDong -->
+        <activity
+            android:name=".ui.food.AddFoodActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.exercise.AddExerciseActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
 
     </application>
 
