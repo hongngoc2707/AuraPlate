@@ -39,13 +39,15 @@ class ProfileFragment : Fragment() {
     private fun loadUserData() {
         if (_binding == null) return
         val user = preferences.getUser()
-        binding.tvProfileName.text = user.name
-        binding.tvProfileEmail.text = user.email
-        binding.tvProfileHeight.text = "📏 ${user.heightCm} cm"
-        binding.tvProfileWeight.text = "⚖️ ${user.currentWeightKg} kg"
-
-        val bmi = BmiCalculator.calculateBmi(user.currentWeightKg, user.heightCm)
-        binding.tvProfileBmi.text = "🎯 BMI ${String.format("%.1f", bmi)}"
+        binding.tvProfileName.text = user.name.ifBlank { "Bạn" }
+        binding.tvProfileEmail.text = user.email.ifBlank { "Chưa cập nhật email" }
+        val ready = preferences.hasSavedProfile()
+        binding.tvProfileHeight.text = if (ready) "📏 ${user.heightCm} cm" else "📏 -- cm"
+        binding.tvProfileWeight.text = if (ready) "⚖️ ${user.currentWeightKg} kg" else "⚖️ -- kg"
+        binding.tvProfileBmi.text = if (ready && user.heightCm > 0f) {
+            val bmi = BmiCalculator.calculateBmi(user.currentWeightKg, user.heightCm)
+            "🎯 BMI ${String.format(java.util.Locale.US, "%.1f", bmi)}"
+        } else "🎯 BMI --"
     }
 
     private fun setupListeners() {

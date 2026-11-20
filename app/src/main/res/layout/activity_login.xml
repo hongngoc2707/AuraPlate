@@ -1,175 +1,216 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version='1.0' encoding='UTF-8'?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen_bg"
+    android:background="@drawable/bg_aura_screen"
     android:fillViewport="true">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingHorizontal="24dp"
+      android:paddingTop="18dp"
+      android:paddingBottom="24dp">
+    <!-- Nút Back góc trên trái -->
+    <ImageButton
+        android:id="@+id/btnBackLogin"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="@drawable/bg_circle_button"
+        android:backgroundTint="#E6F4EC"
+        android:contentDescription="Quay lại"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/primary_green" />
+    <!-- Logo AuraPlate -->
+    <ImageView
+        android:id="@+id/tvLogoEmoji"
+        android:layout_width="160dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:contentDescription="Minh họa AuraPlate"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ap_app_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBackLogin" />
+    <!-- Slogan dưới logo -->
+    <TextView
+        android:id="@+id/tvBrandSlogan"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="24dp">
-
-        <TextView
-            android:id="@+id/tvLogoEmoji"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/bg_circle_button"
-            android:backgroundTint="@color/primary_green_light"
-            android:gravity="center"
-            android:text="🥗"
-            android:textSize="28sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvLoginTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Đăng nhập"
-            android:textColor="@color/text_primary"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLogoEmoji" />
-
-        <TextView
-            android:id="@+id/tvLoginSubtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Bắt đầu ngày mới với chế độ ăn uống lành mạnh"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLoginTitle" />
-
-        <!-- Input Email -->
-        <TextView
-            android:id="@+id/lblEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Email"
-            android:textColor="@color/text_primary"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLoginSubtitle" />
-
-        <EditText
-            android:id="@+id/edtEmail"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input_field"
-            android:hint="Nhập email của bạn (vd: an@auraplate.vn)"
-            android:inputType="textEmailAddress"
-            android:paddingHorizontal="16dp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_muted"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@+id/lblEmail" />
-
-        <!-- Input Password -->
-        <TextView
-            android:id="@+id/lblPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Mật khẩu"
-            android:textColor="@color/text_primary"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
-
-        <EditText
-            android:id="@+id/edtPassword"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input_field"
-            android:hint="Nhập mật khẩu"
-            android:inputType="textPassword"
-            android:paddingHorizontal="16dp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_muted"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@+id/lblPassword" />
-
-        <TextView
-            android:id="@+id/tvForgotPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Quên mật khẩu?"
-            android:textColor="@color/primary_green"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
-
-        <!-- Button Login -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginTop="28dp"
-            android:text="Đăng nhập"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/primary_green"
-            app:cornerRadius="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
-
-        <!-- Button Skip / Demo -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSkipDemo"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            android:text="Trải nghiệm nhanh (Khách)"
-            android:textColor="@color/primary_green"
-            app:backgroundTint="@color/primary_green_light"
-            app:cornerRadius="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-        <!-- Bottom Link to Register -->
-        <LinearLayout
-            android:id="@+id/layoutRegisterLink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="24dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnSkipDemo">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chưa có tài khoản? "
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tvGoToRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đăng ký ngay"
-                android:textColor="@color/primary_green"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:lineSpacingExtra="2dp"
+        android:text="Cân bằng dinh dưỡng\ncho cuộc sống khỏe mạnh"
+        android:textColor="@color/primary_green"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLogoEmoji" />
+    <!-- Tiêu đề chính -->
+    <TextView
+        android:id="@+id/tvLoginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Chào mừng trở lại!"
+        android:textColor="@color/text_primary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBrandSlogan" />
+    <!-- Phụ đề -->
+    <TextView
+        android:id="@+id/tvLoginSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="Đăng nhập để theo dõi dinh dưỡng của bạn"
+        android:textColor="@color/text_secondary"
+        android:textSize="13.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLoginTitle" />
+    <!-- Input Email (có icon thư bên trái, bo góc 16dp) -->
+    <LinearLayout
+        android:id="@+id/layoutEmailField"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/bg_login_field"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvLoginSubtitle">
+      <ImageView
+          android:layout_width="22dp"
+          android:layout_height="22dp"
+          android:contentDescription="Email"
+          android:src="@drawable/ic_mail_outline" />
+      <EditText
+          android:id="@+id/edtEmail"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_marginStart="12dp"
+          android:layout_weight="1"
+          android:background="@null"
+          android:hint="Nhập email của bạn"
+          android:importantForAutofill="no"
+          android:inputType="textEmailAddress"
+          android:singleLine="true"
+          android:textColor="@color/text_primary"
+          android:textColorHint="#8A9991"
+          android:textSize="14.5sp" />
+    </LinearLayout>
+    <!-- Input Password (có icon ổ khóa trái + toggle ẩn/hiện mật khẩu phải) -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPassword"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="14dp"
+        app:boxBackgroundColor="#FFFFFF"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:boxStrokeColor="#E2E8E4"
+        app:boxStrokeWidth="1.2dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="#8A9991"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@+id/layoutEmailField"
+        app:startIconDrawable="@drawable/ic_lock_outline"
+        app:startIconTint="#8A9991">
+      <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/edtPassword"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@null"
+          android:hint="Nhập mật khẩu"
+          android:inputType="textPassword"
+          android:paddingVertical="0dp"
+          android:singleLine="true"
+          android:textColor="@color/text_primary"
+          android:textColorHint="#ABB4AF"
+          android:textSize="14.5sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <!-- Quên mật khẩu -->
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Quên mật khẩu?"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+    <!-- Button Login -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:text="Đăng nhập"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/primary_green"
+        app:cornerRadius="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
+    <!-- Button Skip / Demo -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSkipDemo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:text="Trải nghiệm nhanh (Khách)"
+        android:textAllCaps="false"
+        android:textColor="@color/primary_green"
+        android:visibility="gone"
+        app:backgroundTint="@color/primary_green_light"
+        app:cornerRadius="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+    <!-- Bottom Link to Register -->
+    <LinearLayout
+        android:id="@+id/layoutRegisterLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSkipDemo">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Chưa có tài khoản? "
+          android:textColor="#7D8C84"
+          android:textSize="13.5sp" />
+      <TextView
+          android:id="@+id/tvGoToRegister"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Đăng ký ngay"
+          android:textColor="@color/primary_green"
+          android:textSize="13.5sp"
+          android:textStyle="bold" />
+    </LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -14,5 +14,10 @@
 .cxx
 local.properties
 create_git_branches.ps1
-
-.idea/
+/.idea/
+/.kotlin/
+/app/build/
+*.apk
+*.aab
+*.jks
+*.keystore

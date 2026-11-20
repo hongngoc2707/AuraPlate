@@ -1,103 +1,136 @@
 package com.example.auraplate.ui.profile
 
 import android.content.Intent
+import androidx.activity.OnBackPressedCallback
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.auraplate.MainActivity
-import com.example.auraplate.R
+import com.example.auraplate.ui.auth.LoginActivity
+import com.example.auraplate.ui.auth.RegisterActivity
+import com.example.auraplate.utils.applySystemBars
 import com.example.auraplate.data.local.AppPreferences
 import com.example.auraplate.databinding.ActivitySetupProfileBinding
-import com.example.auraplate.utils.BmiCalculator
 
+/** Thiết lập hồ sơ ban đầu theo đúng activity_setup_profile.xml. */
 class SetupProfileActivity : AppCompatActivity() {
 
+    companion object {
+        const val EXTRA_FROM_REGISTER = "from_register"
+    }
+
     private lateinit var binding: ActivitySetupProfileBinding
-    private var selectedGender: String = "Nam"
     private lateinit var preferences: AppPreferences
+    private var selectedGender: String = "Nam"
+    private var activityLevel: String = "Vận động nhẹ"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySetupProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        applySystemBars(binding.root)
         preferences = AppPreferences(this)
+        loadExistingProfile()
         setupListeners()
-        calculateAndDisplayBmi()
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() = returnToPreviousStep()
+            }
+        )
+    }
+
+    private fun loadExistingProfile() {
+        val user = preferences.getUser()
+        // Không dùng các trường TargetWeight/BMI vì giao diện Figma không có.
+        selectedGender = user.gender
+        activityLevel = preferences.getActivityLevel()
+        binding.tvEditGender.text = selectedGender
+        updateActivityLevel()
+        // Giữ ô trống khi mới thiết lập để người dùng chủ động nhập.
     }
 
     private fun setupListeners() {
-        binding.btnGenderMale.setOnClickListener { selectGender("Nam") }
-        binding.btnGenderFemale.setOnClickListener { selectGender("Nữ") }
-
-        val watcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                calculateAndDisplayBmi()
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        }
-
-        binding.edtHeight.addTextChangedListener(watcher)
-        binding.edtCurrentWeight.addTextChangedListener(watcher)
-
-        binding.btnCompleteProfile.setOnClickListener { saveProfileAndProceed() }
+        binding.btnBackEditProfile.setOnClickListener { returnToPreviousStep() }
+        binding.layoutSelectGender.setOnClickListener { showGenderPicker() }
+        binding.layoutActivityLevel.setOnClickListener { showActivityLevelPicker() }
+        binding.btnSaveProfile.setOnClickListener { saveProfileAndProceed() }
     }
 
-    private fun selectGender(gender: String) {
-        selectedGender = gender
-        if ("Nam" == gender) {
-            binding.btnGenderMale.setBackgroundResource(R.drawable.bg_segment_active)
-            binding.btnGenderMale.setTextColor(ContextCompat.getColor(this, R.color.white))
-            binding.btnGenderFemale.background = null
-            binding.btnGenderFemale.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
-        } else {
-            binding.btnGenderFemale.setBackgroundResource(R.drawable.bg_segment_active)
-            binding.btnGenderFemale.setTextColor(ContextCompat.getColor(this, R.color.white))
-            binding.btnGenderMale.background = null
-            binding.btnGenderMale.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+    /**
+     * Đăng ký -> Thiết lập: quay về Đăng ký.
+     * Đăng nhập -> Thiết lập (hồ sơ chưa có): quay về Đăng nhập.
+     * CLEAR_TOP giữ biểu mẫu đã nhập nếu Activity trước vẫn còn trong task.
+     */
+    private fun returnToPreviousStep() {
+        val fromRegister = intent.getBooleanExtra(EXTRA_FROM_REGISTER, false)
+        val destination = if (fromRegister) RegisterActivity::class.java else LoginActivity::class.java
+        val backIntent = Intent(this, destination).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }
+        startActivity(backIntent)
+        finish()
     }
 
-    private fun calculateAndDisplayBmi() {
-        try {
-            val height = binding.edtHeight.text.toString().trim().toFloat()
-            val weight = binding.edtCurrentWeight.text.toString().trim().toFloat()
-            if (height > 0 && weight > 0) {
-                val bmi = BmiCalculator.calculateBmi(weight, height)
-                binding.tvBmiNumber.text = String.format("%.1f", bmi)
-                val status = BmiCalculator.getBmiStatus(bmi)
-                binding.tvBmiStatusTag.text = status.uppercase()
-                binding.tvBmiDescription.text = "💡 Thể trạng hiện tại: $status. AuraPlate đã hiệu chỉnh kế hoạch dinh dưỡng phù hợp cho bạn."
+    private fun showGenderPicker() {
+        val genders = arrayOf("Nam", "Nữ", "Khác")
+        AlertDialog.Builder(this)
+            .setTitle("Chọn giới tính")
+            .setItems(genders) { _, index ->
+                selectedGender = genders[index]
+                binding.tvEditGender.text = selectedGender
             }
-        } catch (_: Exception) {}
+            .setNegativeButton("Hủy", null)
+            .show()
+    }
+
+    private fun showActivityLevelPicker() {
+        val levels = arrayOf("Ít vận động", "Vận động nhẹ", "Vận động vừa", "Vận động nhiều")
+        AlertDialog.Builder(this)
+            .setTitle("Mức độ vận động")
+            .setItems(levels) { _, index ->
+                activityLevel = levels[index]
+                updateActivityLevel()
+            }
+            .setNegativeButton("Hủy", null)
+            .show()
+    }
+
+    private fun updateActivityLevel() {
+        binding.tvActivityLevelTitle.text = activityLevel
+        binding.tvActivityLevelDesc.text = when (activityLevel) {
+            "Ít vận động" -> "Chủ yếu ngồi, ít tập luyện"
+            "Vận động nhẹ" -> "Đi bộ, thể dục 1–3 buổi/tuần"
+            "Vận động vừa" -> "Tập luyện 3–5 buổi/tuần"
+            else -> "Tập luyện hầu như mỗi ngày"
+        }
     }
 
     private fun saveProfileAndProceed() {
-        try {
-            val age = binding.edtAge.text.toString().trim().toInt()
-            val height = binding.edtHeight.text.toString().trim().toFloat()
-            val currentWeight = binding.edtCurrentWeight.text.toString().trim().toFloat()
-            val targetWeight = binding.edtTargetWeight.text.toString().trim().toFloat()
+        val age = binding.edtEditAge.text.toString().trim().toIntOrNull()
+        val height = binding.edtEditHeight.text.toString().trim().toFloatOrNull()
+        val weight = binding.edtEditWeight.text.toString().trim().toFloatOrNull()
 
-            val user = preferences.getUser()
-            user.gender = selectedGender
-            user.age = age
-            user.heightCm = height
-            user.currentWeightKg = currentWeight
-            user.targetWeightKg = targetWeight
-            preferences.saveUser(user)
-            preferences.isLoggedIn = true
-
-            Toast.makeText(this, "Hồ sơ đã được lưu thành công!", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        } catch (_: Exception) {
-            Toast.makeText(this, "Vui lòng nhập đầy đủ và chính xác các chỉ số", Toast.LENGTH_SHORT).show()
+        if (age == null || age !in 1..120 || height == null || height <= 0f ||
+            weight == null || weight <= 0f || !height.isFinite() || !weight.isFinite()) {
+            Toast.makeText(this, "Vui lòng nhập đầy đủ tuổi, chiều cao và cân nặng", Toast.LENGTH_LONG).show()
+            return
         }
+
+        val user = preferences.getUser()
+        user.age = age
+        user.gender = selectedGender
+        user.heightCm = height
+        user.currentWeightKg = weight
+        preferences.saveUser(user)
+        preferences.markProfileCompleted(weight, height)
+        preferences.saveActivityLevel(activityLevel)
+        preferences.isLoggedIn = true
+        Toast.makeText(this, "Đã lưu hồ sơ", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
     }
 }

@@ -1,127 +1,101 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version='1.0' encoding='UTF-8'?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/card_bg"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="8dp">
-
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog_aura_rounded"
+    android:padding="8dp">
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="18dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="22dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Hoạt động khác"
-                android:textColor="@color/text_primary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/btnCloseOtherDialog"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:gravity="center"
-                android:text="✕"
-                android:textColor="@color/text_secondary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="Nhập tên hoạt động bạn muốn ghi lại"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Tên hoạt động"
-            android:textColor="@color/text_primary"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/edtOtherActivityName"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/bg_input_field"
-            android:hint="VD: Cầu lông, leo núi, bóng rổ..."
-            android:paddingHorizontal="12dp"
-            android:textColor="@color/text_primary"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Thời gian tập (phút)"
-            android:textColor="@color/text_primary"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/edtOtherActivityDuration"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/bg_input_field"
-            android:gravity="center"
-            android:hint="30"
-            android:inputType="number"
-            android:text="30"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCancelOtherDialog"
-                android:layout_width="0dp"
-                android:layout_height="46dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:text="Hủy"
-                android:textColor="@color/text_secondary"
-                app:backgroundTint="@color/input_bg"
-                app:cornerRadius="12dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnConfirmOtherDialog"
-                android:layout_width="0dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="Xác nhận"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:backgroundTint="@color/primary_green"
-                app:cornerRadius="12dp" />
-
-        </LinearLayout>
-
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:text="Hoạt động khác"
+          android:textColor="#1F3D2E"
+          android:textSize="19sp"
+          android:textStyle="bold"
+          android:layout_weight="1" />
+      <TextView
+          android:layout_width="40dp"
+          android:layout_height="wrap_content"
+          android:text="×"
+          android:textColor="#267D4C"
+          android:textSize="26sp"
+          android:id="@+id/otherClose"
+          android:gravity="center" />
     </LinearLayout>
-
-</com.google.android.material.card.MaterialCardView>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="4dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nhập tên hoạt động bạn muốn ghi lại."
+        android:textColor="#7A9081"
+        android:textSize="13sp" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên hoạt động"
+        android:textColor="#1F3D2E"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="6dp" />
+    <EditText
+        android:id="@+id/otherNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:singleLine="true"
+        android:textSize="14sp"
+        android:hint="VD: Cầu lông, leo núi..."
+        android:paddingHorizontal="12dp"
+        android:background="@drawable/bg_fgm_input"
+        android:minHeight="48dp" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="17dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="48dp"
+          android:text="Hủy"
+          android:textColor="#267D4C"
+          android:textSize="14sp"
+          android:textStyle="bold"
+          android:id="@+id/otherCancel"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:background="@drawable/bg_fgm_card"
+          android:layout_marginEnd="6dp" />
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="48dp"
+          android:text="Xác nhận"
+          android:textColor="#FFFFFF"
+          android:textSize="14sp"
+          android:textStyle="bold"
+          android:id="@+id/otherConfirm"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:background="@drawable/bg_fgm_button" />
+    </LinearLayout>
+  </LinearLayout>
+</LinearLayout>

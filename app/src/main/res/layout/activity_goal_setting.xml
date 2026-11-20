@@ -1,305 +1,518 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version='1.0' encoding='UTF-8'?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen_bg"
+    android:background="@drawable/bg_aura_screen"
     android:fillViewport="true">
-
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
-
-        <!-- Header -->
+        android:paddingHorizontal="20dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="12dp">
+      <!-- Header + Hình cân góc trên phải -->
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="148dp">
+        <ImageView
+            android:layout_width="146dp"
+            android:layout_height="128dp"
+            android:layout_gravity="top|end"
+            android:contentDescription="Cân và thước dây"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ap_scale" />
+        <LinearLayout
+            android:layout_width="245dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:orientation="vertical">
+          <ImageButton
+              android:id="@+id/btnBackGoalSetting"
+              android:layout_width="42dp"
+              android:layout_height="42dp"
+              android:background="@drawable/bg_goal_back_btn"
+              android:contentDescription="Quay lại"
+              android:padding="10dp"
+              android:scaleType="centerInside"
+              android:src="@drawable/ic_arrow_back"
+              app:tint="@color/primary_green" />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:text="Mục tiêu cân nặng"
+              android:textColor="@color/text_primary"
+              android:textSize="23sp"
+              android:textStyle="bold" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:lineSpacingExtra="1dp"
+              android:text="Thiết lập mục tiêu để AuraPlate đồng hành cùng bạn trong hành trình sống khỏe"
+              android:textColor="#7D8C84"
+              android:textSize="12sp" />
+        </LinearLayout>
+      </FrameLayout>
+      <!-- Card Cân nặng hiện tại -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="94dp"
+          android:layout_marginTop="14dp"
+          app:cardBackgroundColor="#FFFFFF"
+          app:cardCornerRadius="20dp"
+          app:cardElevation="0dp"
+          app:strokeColor="#DCE5E0"
+          app:strokeWidth="1dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btnBackGoalSetting"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_circle_button"
-                android:backgroundTint="@color/card_bg"
-                android:src="@drawable/ic_arrow_back" />
-
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+          <ImageView
+              android:layout_width="54dp"
+              android:layout_height="54dp"
+              android:contentDescription="Cân nặng hiện tại"
+              android:scaleType="fitCenter"
+              android:src="@drawable/ap_balance_icon" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="16dp"
+              android:orientation="vertical">
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:layout_weight="1"
-                android:text="Thiết lập mục tiêu"
-                android:textColor="@color/text_primary"
-                android:textSize="20sp"
+                android:text="Cân nặng hiện tại"
+                android:textColor="#7D8C84"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvCurrentGoalWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="-- kg"
+                android:textColor="#26382E"
+                android:textSize="24sp"
                 android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <!-- Current vs Target Weight Box -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/card_bg"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="1dp"
-            app:strokeColor="@color/border_light"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hiện tại"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/tvCurrentGoalWeight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="57.4 kg"
-                        android:textColor="@color/text_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="➔"
-                    android:textColor="@color/primary_green"
-                    android:textSize="22sp" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mục tiêu"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
-
-                    <EditText
-                        android:id="@+id/edtTargetGoalWeight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:background="@null"
-                        android:gravity="center"
-                        android:inputType="numberDecimal"
-                        android:text="56.0"
-                        android:textColor="@color/primary_green"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Speed Selection -->
+                android:text="Từ thông tin hồ sơ của bạn"
+                android:textColor="#8E9B94"
+                android:textSize="12sp" />
+          </LinearLayout>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <!-- Tiêu đề chọn mục tiêu -->
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:text="Bạn muốn đạt mục tiêu nào ?"
+          android:textColor="#26382E"
+          android:textSize="16sp"
+          android:textStyle="bold" />
+      <!-- 3 ô mục tiêu -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="128dp"
+          android:layout_marginTop="12dp"
+          android:baselineAligned="false"
+          android:orientation="horizontal">
+        <!-- Giảm cân -->
+        <LinearLayout
+            android:id="@+id/optSpeedSlow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_goal_option_card"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+          <ImageView
+              android:layout_width="32dp"
+              android:layout_height="24dp"
+              android:contentDescription="Giảm cân"
+              android:src="@drawable/ic_trend_down" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="6dp"
+              android:gravity="center"
+              android:text="Giảm cân"
+              android:textColor="#26382E"
+              android:textSize="12sp"
+              android:textStyle="bold" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:gravity="center"
+              android:lineSpacingExtra="1dp"
+              android:text="Giảm mỡ thừa,\nkhỏe mạnh hơn"
+              android:textColor="#7D8C84"
+              android:textSize="11sp" />
+        </LinearLayout>
+        <!-- Duy trì cân nặng -->
+        <LinearLayout
+            android:id="@+id/optSpeedStandard"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_goal_option_card"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+          <ImageView
+              android:layout_width="30dp"
+              android:layout_height="24dp"
+              android:contentDescription="Duy trì cân nặng"
+              android:src="@drawable/ic_minus_circle" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="6dp"
+              android:gravity="center"
+              android:text="Duy trì cân nặng"
+              android:textColor="#26382E"
+              android:textSize="12sp"
+              android:textStyle="bold" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:gravity="center"
+              android:lineSpacingExtra="1dp"
+              android:text="Giữ cân nặng\nhiện tại"
+              android:textColor="#7D8C84"
+              android:textSize="11sp" />
+        </LinearLayout>
+        <!-- Tăng cân -->
+        <LinearLayout
+            android:id="@+id/optSpeedFast"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_goal_option_card"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+          <ImageView
+              android:layout_width="32dp"
+              android:layout_height="24dp"
+              android:contentDescription="Tăng cân"
+              android:src="@drawable/ic_trend_up" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="6dp"
+              android:gravity="center"
+              android:text="Tăng cân"
+              android:textColor="#26382E"
+              android:textSize="12sp"
+              android:textStyle="bold" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:gravity="center"
+              android:lineSpacingExtra="1dp"
+              android:text="Tăng cơ, cải thiện\nthể trạng"
+              android:textColor="#7D8C84"
+              android:textSize="11sp" />
+        </LinearLayout>
+      </LinearLayout>
+      <!-- Chi tiết mục tiêu -->
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="18dp"
+          android:text="Chi tiết mục tiêu"
+          android:textColor="#26382E"
+          android:textSize="16sp"
+          android:textStyle="bold" />
+      <!-- Dòng Cân nặng mục tiêu -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+          android:layout_marginTop="10dp"
+          android:background="@drawable/bg_goal_row_card"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          android:paddingHorizontal="14dp">
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:contentDescription="Cân nặng mục tiêu"
+            android:background="@drawable/bg_goal_pill_input"
+            android:src="@drawable/ap_target_icon" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:text="Cân nặng mục tiêu"
+            android:textColor="#5E6E66"
+            android:textSize="13.5sp" />
+        <LinearLayout
+            android:layout_width="116dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_goal_pill_input"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp">
+          <EditText
+              android:id="@+id/edtTargetGoalWeight"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:background="@null"
+              android:gravity="center"
+              android:hint="--"
+              android:importantForAutofill="no"
+              android:inputType="numberDecimal"
+              android:maxLength="5"
+              android:singleLine="true"
+              android:textColor="#26382E"
+              android:textColorHint="#5E6E66"
+              android:textSize="14sp"
+              android:textStyle="bold" />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="kg"
+              android:textColor="#8E9B94"
+              android:textSize="13sp" />
+        </LinearLayout>
+      </LinearLayout>
+      <!-- Dòng Thời gian dự kiến -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+          android:layout_marginTop="10dp"
+          android:background="@drawable/bg_goal_row_card"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          android:paddingHorizontal="14dp">
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/bg_goal_pill_input"
+            android:contentDescription="Thời gian dự kiến"
+            android:padding="7dp"
+            android:src="@drawable/ic_calendar_small" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:text="Thời gian dự kiến"
+            android:textColor="#5E6E66"
+            android:textSize="13.5sp" />
+        <FrameLayout
+            android:layout_width="116dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_goal_pill_input">
+          <Spinner
+              android:id="@+id/spGoalDuration"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/transparent"
+              android:contentDescription="Chọn thời gian dự kiến"
+              android:paddingEnd="28dp" />
+          <ImageView
+              android:layout_width="16dp"
+              android:layout_height="16dp"
+              android:layout_gravity="center_vertical|end"
+              android:layout_marginEnd="10dp"
+              android:contentDescription="Mở danh sách"
+              android:src="@drawable/ic_chevron_down" />
+        </FrameLayout>
+      </LinearLayout>
+      <!-- Tip -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="14dp"
+          android:background="@drawable/bg_goal_tip_card"
+          android:gravity="center_vertical"
+          android:minHeight="76dp"
+          android:orientation="horizontal"
+          android:padding="12dp">
+        <ImageView
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:contentDescription="Mẹo"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ap_lightbulb_yellow" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Mỗi ngày một bước tiến!"
+              android:textColor="#26382E"
+              android:textSize="13sp"
+              android:textStyle="bold" />
+          <TextView
+              android:id="@+id/tvGoalTip"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:lineSpacingExtra="1dp"
+              android:text="Giảm 0,5kg - 1kg mỗi tuần là an toàn\nvà tốt cho sức khỏe"
+              android:textColor="#7D8C84"
+              android:textSize="12sp" />
+        </LinearLayout>
+      </LinearLayout>
+      <!-- Nút Lưu mục tiêu -->
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnSaveGoalPlan"
+          android:layout_width="match_parent"
+          android:layout_height="54dp"
+          android:layout_marginTop="16dp"
+          android:text="Lưu mục tiêu"
+          android:textAllCaps="false"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          app:backgroundTint="@color/primary_green"
+          app:cornerRadius="18dp" />
+    </LinearLayout>
+    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="4dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="6dp">
+      <LinearLayout
+          android:id="@+id/navGoalTabHome"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="true"
+          android:focusable="true"
+          android:gravity="center"
+          android:orientation="vertical">
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:contentDescription="Trang chủ"
+            android:src="@drawable/ic_nav_home_active" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Tốc độ giảm cân mong muốn"
-            android:textColor="@color/text_primary"
-            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:text="Trang chủ"
+            android:textColor="@color/primary_green"
+            android:textSize="11sp"
             android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+      </LinearLayout>
+      <LinearLayout
+          android:id="@+id/navGoalTabDiet"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="true"
+          android:focusable="true"
+          android:gravity="center"
+          android:orientation="vertical">
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:contentDescription="Ăn uống"
+            android:src="@drawable/ic_nav_diet" />
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/optSpeedSlow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/bg_rounded_card"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="🌱 Bền vững (0.25 kg / tuần)"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-250 kcal/ngày"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/optSpeedStandard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/bg_segment_active"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="⭐ Tiêu chuẩn khuyến nghị (0.5 kg / tuần)"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-500 kcal/ngày"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/optSpeedFast"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_rounded_card"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="⚡ Nhanh (0.75 kg / tuần)"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-750 kcal/ngày"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- Suggested Daily Plan Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
+            android:layout_marginTop="2dp"
+            android:text="Ăn uống"
+            android:textColor="#8E9B94"
+            android:textSize="11sp" />
+      </LinearLayout>
+      <FrameLayout
+          android:id="@+id/navGoalQuickAdd"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="true"
+          android:focusable="true">
+        <ImageView
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_gravity="center"
+            android:contentDescription="Thêm nhanh"
+            android:src="@drawable/ic_nav_add_circle" />
+      </FrameLayout>
+      <LinearLayout
+          android:id="@+id/navGoalTabExercise"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="true"
+          android:focusable="true"
+          android:gravity="center"
+          android:orientation="vertical">
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:contentDescription="Vận động"
+            android:src="@drawable/ic_nav_exercise" />
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/primary_green_bg"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp"
-            app:strokeColor="@color/primary_green_light"
-            app:strokeWidth="1.5dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kế hoạch đề xuất hàng ngày"
-                    android:textColor="@color/primary_green"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="• Calo nạp tối đa: 1,700 kcal"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="• Vận động tối thiểu: 300 kcal"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="📅 Dự kiến về đích: 15/12/2026 (khoảng 4 tuần)"
-                    android:textColor="@color/primary_green_dark"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Button Save -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSaveGoalPlan"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginBottom="20dp"
-            android:text="Lưu kế hoạch mục tiêu"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/primary_green"
-            app:cornerRadius="14dp" />
-
+            android:layout_marginTop="2dp"
+            android:text="Vận động"
+            android:textColor="#8E9B94"
+            android:textSize="11sp" />
+      </LinearLayout>
+      <LinearLayout
+          android:id="@+id/navGoalTabProfile"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="true"
+          android:focusable="true"
+          android:gravity="center"
+          android:orientation="vertical">
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:contentDescription="Cá nhân"
+            android:src="@drawable/ic_nav_profile" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Cá nhân"
+            android:textColor="#8E9B94"
+            android:textSize="11sp" />
+      </LinearLayout>
     </LinearLayout>
-
+  </LinearLayout>
 </ScrollView>

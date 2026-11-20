@@ -1,12 +1,15 @@
 package com.example.auraplate.ui.auth
 
 import android.content.Intent
+import android.util.Patterns
+import androidx.activity.OnBackPressedCallback
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.auraplate.data.local.AppPreferences
 import com.example.auraplate.databinding.ActivityRegisterBinding
 import com.example.auraplate.ui.profile.SetupProfileActivity
+import com.example.auraplate.utils.applySystemBars
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -17,15 +20,31 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        applySystemBars(binding.root)
 
         preferences = AppPreferences(this)
         setupListeners()
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() = returnToLogin()
+            }
+        )
     }
 
     private fun setupListeners() {
-        binding.btnBackRegister.setOnClickListener { finish() }
-        binding.tvGoToLogin.setOnClickListener { finish() }
+        binding.btnBackRegister.setOnClickListener { returnToLogin() }
+        binding.tvGoToLogin.setOnClickListener { returnToLogin() }
         binding.btnSubmitRegister.setOnClickListener { performRegistration() }
+    }
+
+    /** Trở lại đúng màn hình đăng nhập, kể cả khi mở màn hình Đăng ký trực tiếp. */
+    private fun returnToLogin() {
+        val intent = Intent(this, LoginActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        }
+        startActivity(intent)
+        finish()
     }
 
     private fun performRegistration() {
@@ -46,9 +65,15 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        if (pass.length < 6) {
-            binding.edtRegPass.error = "Mật khẩu phải từ 6 ký tự trở lên"
+        if (pass.length < 8) {
+            binding.edtRegPass.error = "Mật khẩu phải từ 8 ký tự trở lên"
             binding.edtRegPass.requestFocus()
+            return
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.edtRegEmail.error = "Địa chỉ email không hợp lệ"
+            binding.edtRegEmail.requestFocus()
             return
         }
 
@@ -69,8 +94,10 @@ class RegisterActivity : AppCompatActivity() {
         preferences.saveUser(user)
 
         Toast.makeText(this, "Tạo tài khoản thành công! Hãy thiết lập hồ sơ", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, SetupProfileActivity::class.java)
+        // Không đóng RegisterActivity tại đây: cho phép quay lại sửa thông tin.
+        val intent = Intent(this, SetupProfileActivity::class.java).apply {
+            putExtra(SetupProfileActivity.EXTRA_FROM_REGISTER, true)
+        }
         startActivity(intent)
-        finish()
     }
 }
