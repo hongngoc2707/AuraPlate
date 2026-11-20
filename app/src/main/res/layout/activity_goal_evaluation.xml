@@ -1,785 +1,620 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout 
+<?xml version='1.0' encoding='UTF-8'?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7FAF8">
-
-    <!-- Scrollable Content -->
-    <androidx.core.widget.NestedScrollView
+    android:background="@drawable/bg_aura_screen">
+  <androidx.core.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fillViewport="true"
+      android:clipToPadding="false">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="90dp">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="110dp">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_circle_button"
+            android:contentDescription="Quay lại"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/primary_green" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Đánh giá tiến độ"
+              android:textColor="#1F3D2E"
+              android:textSize="22sp"
+              android:textStyle="bold" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="4dp"
+              android:text="Từ hồ sơ và nhật ký bạn đã ghi"
+              android:textColor="#688271"
+              android:textSize="13sp" />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:src="@drawable/ap_scale"
+            android:scaleType="fitCenter"
+            android:contentDescription="Cân sức khỏe" />
+      </LinearLayout>
+      <!-- Không hiển thị Health Score hay thứ hạng tự gán. -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="18dp"
+          android:background="@drawable/bg_fgm_card"
+          android:padding="5dp"
+          android:gravity="center"
+          android:orientation="horizontal">
+        <TextView
+            android:id="@+id/btnReviewWeek"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Tuần này"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#267D4C"
+            android:background="@drawable/bg_fgm_card" />
+        <TextView
+            android:id="@+id/btnReviewMonth"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Tháng này"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#267D4C"
+            android:background="@drawable/bg_fgm_card" />
+        <TextView
+            android:id="@+id/btnReviewAll"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Toàn lộ trình"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#267D4C"
+            android:background="@drawable/bg_fgm_card" />
+      </LinearLayout>
+      <TextView
+          android:id="@+id/tvReviewPeriodCaption"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="6dp"
+          android:text="Dữ liệu nhật ký trong tuần hiện tại"
+          android:textSize="13sp"
+          android:lineSpacingExtra="3dp"
+          android:textColor="#718577" />
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="22dp"
+          app:cardBackgroundColor="#FFFFFF"
+          app:cardCornerRadius="20dp"
+          app:cardElevation="0dp"
+          app:strokeColor="#D7E8DC"
+          app:strokeWidth="1dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="18dp"
+            android:orientation="vertical">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Cân nặng, BMI và mục tiêu"
+              android:textSize="17sp"
+              android:textStyle="bold"
+              android:textColor="#1F3D2E" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="16dp"
+              android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Hiện tại"
+                  android:textColor="#718577"
+                  android:textSize="12sp" />
+              <TextView
+                  android:id="@+id/tvReviewWeight"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dp"
+                  android:text="-- kg"
+                  android:textColor="#267D4C"
+                  android:textStyle="bold"
+                  android:textSize="18sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="BMI tham khảo"
+                  android:textColor="#718577"
+                  android:textSize="12sp" />
+              <TextView
+                  android:id="@+id/tvReviewBmi"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dp"
+                  android:text="--"
+                  android:textColor="#267D4C"
+                  android:textStyle="bold"
+                  android:textSize="18sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Mục tiêu"
+                  android:textColor="#718577"
+                  android:textSize="12sp" />
+              <TextView
+                  android:id="@+id/tvReviewGoalWeight"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dp"
+                  android:text="-- kg"
+                  android:textColor="#267D4C"
+                  android:textStyle="bold"
+                  android:textSize="18sp" />
+            </LinearLayout>
+          </LinearLayout>
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="16dp"
+              android:background="#E4EEE6" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="14dp"
+              android:orientation="horizontal"
+              android:gravity="center_vertical">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tiến độ mục tiêu"
+                android:textColor="#1F3D2E"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvReviewProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa đủ dữ liệu"
+                android:textSize="13sp"
+                android:textColor="#267D4C"
+                android:textStyle="bold" />
+          </LinearLayout>
+          <ProgressBar
+              android:id="@+id/pbReviewProgress"
+              style="?android:attr/progressBarStyleHorizontal"
+              android:layout_width="match_parent"
+              android:layout_height="8dp"
+              android:layout_marginTop="12dp"
+              android:max="100"
+              android:progress="0"
+              android:progressDrawable="@drawable/bg_linear_progress" />
+          <TextView
+              android:id="@+id/tvReviewProgressNote"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="12dp"
+              android:text="Hoàn thiện hồ sơ và đặt mục tiêu để theo dõi."
+              android:lineSpacingExtra="4dp"
+              android:textSize="13sp"
+              android:textColor="#688271" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="14dp"
+              android:background="@drawable/bg_fgm_soft"
+              android:padding="14dp"
+              android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="💡 Nhận xét mục tiêu cân nặng"
+                android:textColor="#267D4C"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvReviewWeightAdvice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Đang chờ dữ liệu bạn đã lưu"
+                android:lineSpacingExtra="4dp"
+                android:textSize="14sp"
+                android:textColor="#355944" />
+          </LinearLayout>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="14dp"
+              android:background="@drawable/bg_fgm_soft"
+              android:padding="14dp"
+              android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="💡 Nhận xét BMI tham khảo"
+                android:textColor="#267D4C"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvReviewBmiAdvice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Đang chờ dữ liệu bạn đã lưu"
+                android:lineSpacingExtra="4dp"
+                android:textSize="14sp"
+                android:textColor="#355944" />
+          </LinearLayout>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="24dp"
+          android:layout_marginBottom="12dp"
+          android:text="Ăn uống và vận động"
+          android:textColor="#1F3D2E"
+          android:textSize="17sp"
+          android:textStyle="bold" />
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="12dp"
+          app:cardCornerRadius="17dp"
+          app:cardElevation="0dp"
+          app:strokeColor="#DCEBDF"
+          app:strokeWidth="1dp"
+          app:cardBackgroundColor="#FFFFFF">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="16dp">
-
-            <!-- Top Header Bar -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <ImageButton
-                    android:id="@+id/btnBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_circle_button"
-                    android:src="@drawable/ic_arrow_back"
-                    android:contentDescription="Quay lại"
-                    app:tint="#1E5E3A" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="12dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="BÁO CÁO TIẾN ĐỘ"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="#1E5E3A"
-                        android:background="@drawable/bg_pill_badge"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="2dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Đánh giá tiến độ"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#193B2B" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Phân tích dinh dưỡng &amp; hiệu quả mục tiêu"
-                        android:textSize="11sp"
-                        android:textColor="#667770" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/bg_badge_icon"
-                    android:padding="9dp"
-                    android:src="@drawable/ic_trophy"
-                    app:tint="#1E5E3A" />
-            </LinearLayout>
-
-            <!-- Time Filter Pills -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="@drawable/bg_segment_container"
-                android:padding="3dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tabWeek"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:paddingVertical="7dp"
-                    android:text="Tuần này"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/bg_segment_active" />
-
-                <TextView
-                    android:id="@+id/tabMonth"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:paddingVertical="7dp"
-                    android:text="Tháng này"
-                    android:textSize="11sp"
-                    android:textColor="#667770" />
-
-                <TextView
-                    android:id="@+id/tabAll"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:paddingVertical="7dp"
-                    android:text="Toàn lộ trình"
-                    android:textSize="11sp"
-                    android:textColor="#667770" />
-            </LinearLayout>
-
-            <!-- Main Score Card (Aura Health Score) -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#D7E8DC"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="14dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Xếp loại: Xuất sắc"
-                                android:textSize="9.5sp"
-                                android:textStyle="bold"
-                                android:textColor="#1E5E3A"
-                                android:background="@drawable/bg_pill_badge"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="2dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Aura Health Score"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:textColor="#193B2B" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Bám sát 92% lộ trình mục tiêu"
-                                android:textSize="11sp"
-                                android:textColor="#667770" />
-                        </LinearLayout>
-
-                        <!-- Circular Score Display -->
-                        <FrameLayout
-                            android:layout_width="54dp"
-                            android:layout_height="54dp">
-
-                            <ProgressBar
-                                android:id="@+id/scoreProgressBar"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:indeterminate="false"
-                                android:max="100"
-                                android:progress="88"
-                                android:progressDrawable="@drawable/bg_circular_progress" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="88"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#1E5E3A" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="/100"
-                                    android:textSize="8sp"
-                                    android:textColor="#889990" />
-                            </LinearLayout>
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="10dp"
-                        android:background="#EDF4EE" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Tiến độ giảm cân"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#33443C" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="65% hoàn thành"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#1E5E3A" />
-                    </LinearLayout>
-
-                    <ProgressBar
-                        android:layout_width="match_parent"
-                        android:layout_height="7dp"
-                        android:layout_marginTop="6dp"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:progress="65"
-                        android:max="100"
-                        android:progressDrawable="@drawable/bg_linear_progress" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Đã giảm: -2.6 kg"
-                            android:textSize="10sp"
-                            android:textColor="#667770" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Còn lại: 1.4 kg"
-                            android:textSize="10sp"
-                            android:textColor="#667770" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Đích: 15/12/2026"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#1E5E3A" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Section Title -->
+            android:padding="18dp">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="🍽  Năng lượng đã nạp"
+              android:textColor="#1F3D2E"
+              android:textStyle="bold"
+              android:textSize="15sp" />
+          <TextView
+              android:id="@+id/tvReviewFood"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:text="Chưa ghi nhận bữa ăn"
+              android:textSize="19sp"
+              android:textStyle="bold"
+              android:textColor="#267D4C" />
+          <TextView
+              android:id="@+id/tvReviewFoodNote"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:lineSpacingExtra="3dp"
+              android:text="Tính từ các món ăn và khẩu phần bạn đã lưu."
+              android:textSize="13sp"
+              android:textColor="#718577" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="14dp"
+              android:background="@drawable/bg_fgm_soft"
+              android:padding="14dp"
+              android:orientation="vertical">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="Chi tiết đánh giá &amp; Lời khuyên từng mục"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColor="#193B2B" />
-
-            <!-- Card 1: Cân nặng & BMI -->
-            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#E0EFE6"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="⚖️ Cân nặng &amp; BMI"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#193B2B" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="57.4 kg (BMI 22.8)"
-                            android:textSize="11.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#1E5E3A"
-                            android:layout_marginEnd="6dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="ĐẠT CHUẨN"
-                            android:textSize="8.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#1E5E3A"
-                            android:background="@drawable/bg_pill_badge"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="1.5dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="#F6FAF7"
-                        android:padding="8dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="💡 "
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Giảm 0.6kg/tuần là tốc độ an toàn. Tiếp tục duy trì lượng calo nạp vào hiện tại, tránh nhịn ăn đột ngột."
-                            android:textSize="10sp"
-                            android:textColor="#33443C"
-                            android:lineSpacingExtra="2dp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Card 2: Calo nạp vào -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#E0EFE6"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="🥗 Calo nạp vào"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#193B2B" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1,620 / 1,700 kcal"
-                            android:textSize="11.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#1E5E3A"
-                            android:layout_marginEnd="6dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="KIỂM SOÁT TỐT"
-                            android:textSize="8.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#1E5E3A"
-                            android:background="@drawable/bg_pill_badge"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="1.5dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="#F6FAF7"
-                        android:padding="8dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="💡 "
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Đạt 95% mục tiêu thâm hụt. Nên uống 1 cốc nước trước bữa ăn để hạn chế ăn quá no vào bữa tối."
-                            android:textSize="10sp"
-                            android:textColor="#33443C"
-                            android:lineSpacingExtra="2dp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Card 3: Vận động tiêu hao -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#E0EFE6"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="🔥 Vận động tiêu hao"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#193B2B" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="380 kcal (42 phút)"
-                            android:textSize="11.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#E65100"
-                            android:layout_marginEnd="6dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="VƯỢT CHỈ TIÊU"
-                            android:textSize="8.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#E65100"
-                            android:background="@drawable/bg_pill_badge_orange"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="1.5dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="#F6FAF7"
-                        android:padding="8dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="💡 "
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Vận động đạt 140% kế hoạch. Bù đủ 500ml nước điện giải và giãn cơ nhẹ nhàng sau các buổi tập."
-                            android:textSize="10sp"
-                            android:textColor="#33443C"
-                            android:lineSpacingExtra="2dp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Card 4: Tỷ lệ Macros -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#FFE8B2"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="📊 Tỷ lệ Macros"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#193B2B" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="48C : 28P : 24F"
-                            android:textSize="11.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#BF360C"
-                            android:layout_marginEnd="6dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="CẦN LƯU Ý"
-                            android:textSize="8.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#BF360C"
-                            android:background="@drawable/bg_pill_badge_orange"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="1.5dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="#FFF8E7"
-                        android:padding="8dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="💡 "
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Nên tăng thêm 15g Protein vào bữa tối (ức gà, trứng, đậu hũ) để bảo toàn khối cơ khi giảm mỡ."
-                            android:textSize="10sp"
-                            android:textColor="#4E342E"
-                            android:lineSpacingExtra="2dp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Summary Banner -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_pill_badge"
-                android:padding="10dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="✨ "
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bạn đang duy trì chuỗi 6 ngày sống khỏe, rất đáng khen ngợi!"
-                    android:textSize="10.5sp"
-                    android:textStyle="bold"
-                    android:textColor="#1E5E3A" />
-            </LinearLayout>
-
-            <!-- Buttons -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAdjustGoal"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="14dp"
-                android:text="Điều chỉnh kế hoạch mục tiêu"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                app:cornerRadius="24dp"
-                app:backgroundTint="#1E5E3A" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnExportReport"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_marginTop="6dp"
-                android:text="Xuất báo cáo tiến độ (Báo cáo 3)"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#1E5E3A"
-                app:strokeColor="#1E5E3A"
-                app:strokeWidth="1.2dp"
-                app:cornerRadius="21dp" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <!-- Bottom Navigation Mockup -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_gravity="bottom"
-        android:background="#FFFFFF"
-        android:elevation="8dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <LinearLayout
-            android:id="@+id/navGoalHome"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_home"
-                app:tint="#99AA9F" />
+                android:text="💡 Gợi ý về ăn uống"
+                android:textColor="#267D4C"
+                android:textSize="14sp"
+                android:textStyle="bold" />
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tvReviewFoodAdvice"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trang chủ"
-                android:textSize="10sp"
-                android:textColor="#99AA9F" />
+                android:layout_marginTop="7dp"
+                android:text="Đang chờ dữ liệu bạn đã lưu"
+                android:lineSpacingExtra="4dp"
+                android:textSize="14sp"
+                android:textColor="#355944" />
+          </LinearLayout>
         </LinearLayout>
-
+      </com.google.android.material.card.MaterialCardView>
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="12dp"
+          app:cardCornerRadius="17dp"
+          app:cardElevation="0dp"
+          app:strokeColor="#DCEBDF"
+          app:strokeWidth="1dp"
+          app:cardBackgroundColor="#FFFFFF">
         <LinearLayout
-            android:id="@+id/navGoalDiet"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_restaurant"
-                app:tint="#99AA9F" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ăn uống"
-                android:textSize="10sp"
-                android:textColor="#99AA9F" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabGoalQuickAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_add"
-                app:tint="#FFFFFF"
-                app:backgroundTint="#1E5E3A"
-                app:fabCustomSize="44dp"
-                app:elevation="3dp" />
-        </FrameLayout>
-
-        <LinearLayout
-            android:id="@+id/navGoalExercise"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_fitness"
-                app:tint="#99AA9F" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vận động"
-                android:textSize="10sp"
-                android:textColor="#99AA9F" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_analytics"
-                app:tint="#1E5E3A" />
+            android:orientation="vertical"
+            android:padding="18dp">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="🚶  Năng lượng vận động"
+              android:textColor="#1F3D2E"
+              android:textStyle="bold"
+              android:textSize="15sp" />
+          <TextView
+              android:id="@+id/tvReviewExercise"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:text="Chưa ghi nhận vận động"
+              android:textSize="19sp"
+              android:textStyle="bold"
+              android:textColor="#267D4C" />
+          <TextView
+              android:id="@+id/tvReviewExerciseNote"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:lineSpacingExtra="3dp"
+              android:text="Kcal là giá trị ước tính theo hoạt động bạn nhập."
+              android:textSize="13sp"
+              android:textColor="#718577" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="14dp"
+              android:background="@drawable/bg_fgm_soft"
+              android:padding="14dp"
+              android:orientation="vertical">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Đánh giá"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="#1E5E3A" />
+                android:text="💡 Gợi ý về vận động"
+                android:textColor="#267D4C"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvReviewExerciseAdvice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Đang chờ dữ liệu bạn đã lưu"
+                android:lineSpacingExtra="4dp"
+                android:textSize="14sp"
+                android:textColor="#355944" />
+          </LinearLayout>
         </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:padding="20dp"
+          android:background="@drawable/bg_fgm_soft"
+          android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💡 Nhận xét theo dữ liệu của bạn"
+            android:textColor="#267D4C"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tvReviewTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="4dp"
+            android:text="Hãy cập nhật hồ sơ, bữa ăn và vận động để nhận tổng kết."
+            android:textColor="#355944"
+            android:textSize="14sp" />
+      </LinearLayout>
+      <TextView
+          android:id="@+id/tvReviewSource"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:text="Nguồn: dữ liệu hồ sơ, mục tiêu và nhật ký lưu trong ứng dụng. BMI là chỉ số tham khảo; kcal vận động chỉ là ước tính. Không sử dụng điểm sức khỏe tự gán."
+          android:lineSpacingExtra="3dp"
+          android:textColor="#718577"
+          android:textSize="12sp" />
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnAdjustGoal"
+          android:layout_width="match_parent"
+          android:layout_height="52dp"
+          android:layout_marginTop="24dp"
+          android:text="Thiết lập / điều chỉnh mục tiêu"
+          android:textSize="14sp"
+          android:textAllCaps="false"
+          android:textColor="#FFFFFF"
+          app:cornerRadius="16dp"
+          app:backgroundTint="#267D4C" />
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnExportReport"
+          style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+          android:layout_width="match_parent"
+          android:layout_height="52dp"
+          android:layout_marginTop="10dp"
+          android:text="Xem lịch sử cân nặng"
+          android:textSize="14sp"
+          android:textAllCaps="false"
+          android:textColor="#267D4C"
+          app:strokeColor="#267D4C"
+          app:strokeWidth="1dp"
+          app:cornerRadius="16dp" />
     </LinearLayout>
-
+  </androidx.core.widget.NestedScrollView>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="68dp"
+      android:layout_gravity="bottom"
+      android:orientation="horizontal"
+      android:gravity="center_vertical"
+      android:background="#FFFFFF"
+      android:elevation="8dp">
+    <LinearLayout
+        android:id="@+id/navGoalHome"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
+      <ImageView
+          android:layout_width="23dp"
+          android:layout_height="23dp"
+          android:src="@drawable/ic_home"
+          app:tint="#83978A"
+          android:importantForAccessibility="no" />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:text="Trang chủ"
+          android:textColor="#83978A"
+          android:textSize="11sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/navGoalDiet"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
+      <ImageView
+          android:layout_width="23dp"
+          android:layout_height="23dp"
+          android:src="@drawable/ic_restaurant"
+          app:tint="#83978A"
+          android:importantForAccessibility="no" />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:text="Ăn uống"
+          android:textColor="#83978A"
+          android:textSize="11sp" />
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+      <ImageView
+          android:id="@+id/fabGoalQuickAdd"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:layout_gravity="center"
+          android:src="@drawable/ic_nav_add_circle"
+          android:contentDescription="Thêm nhanh"
+          android:clickable="true"
+          android:focusable="true" />
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/navGoalExercise"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
+      <ImageView
+          android:layout_width="23dp"
+          android:layout_height="23dp"
+          android:src="@drawable/ic_nav_exercise"
+          app:tint="#83978A"
+          android:importantForAccessibility="no" />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:text="Vận động"
+          android:textColor="#83978A"
+          android:textSize="11sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/navGoalProfile"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
+      <ImageView
+          android:layout_width="23dp"
+          android:layout_height="23dp"
+          android:src="@drawable/ic_person"
+          app:tint="#83978A"
+          android:importantForAccessibility="no" />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:text="Cá nhân"
+          android:textColor="#83978A"
+          android:textSize="11sp" />
+    </LinearLayout>
+  </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

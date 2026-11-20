@@ -1,10 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.AuraPlate" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.AuraPlate" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/primary_green</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/primary_green_light</item>
-        <item name="android:windowBackground">@color/screen_bg</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:windowBackground">@drawable/bg_aura_screen</item>
         <item name="android:statusBarColor">@color/screen_bg</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>

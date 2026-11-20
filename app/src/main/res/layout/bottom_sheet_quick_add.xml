@@ -1,241 +1,130 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version='1.0' encoding='UTF-8'?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_rounded_card"
+    android:background="@drawable/bg_dialog_aura_rounded"
     android:orientation="vertical"
     android:padding="20dp">
-
-    <!-- Drag Handle -->
-    <View
+  <!-- Drag Handle -->
+  <View
+      android:layout_width="40dp"
+      android:layout_height="4dp"
+      android:layout_gravity="center"
+      android:layout_marginBottom="16dp"
+      android:background="@drawable/bg_pill_badge"
+      android:backgroundTint="@color/border_light" />
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Bạn muốn thêm gì?"
+      android:textColor="@color/text_primary"
+      android:textSize="18sp"
+      android:textStyle="bold" />
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:text="Ghi nhận thông tin sức khỏe mỗi ngày"
+      android:textColor="@color/text_secondary"
+      android:textSize="13sp" />
+  <LinearLayout
+      android:id="@+id/btnQuickAddFood"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:background="@drawable/bg_input_field"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:padding="14dp">
+    <TextView
         android:layout_width="40dp"
-        android:layout_height="4dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
+        android:layout_height="40dp"
         android:background="@drawable/bg_pill_badge"
-        android:backgroundTint="@color/border_light" />
-
+        android:gravity="center"
+        android:text="🥗"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Thêm món ăn"
+          android:textColor="@color/text_primary"
+          android:textSize="15sp"
+          android:textStyle="bold" />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Ghi nhận món ăn và lượng calo"
+          android:textColor="@color/text_secondary"
+          android:textSize="13sp" />
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thêm nhanh hoạt động"
-        android:textColor="@color/text_primary"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
+        android:text="›"
+        android:textColor="@color/text_muted"
+        android:textSize="22sp" />
+  </LinearLayout>
+  <LinearLayout
+      android:id="@+id/btnQuickAddExercise"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:background="@drawable/bg_input_field"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:padding="14dp">
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_pill_badge_orange"
+        android:gravity="center"
+        android:text="🏃"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Thêm vận động"
+          android:textColor="@color/text_primary"
+          android:textSize="15sp"
+          android:textStyle="bold" />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Ghi nhận hoạt động thể chất"
+          android:textColor="@color/text_secondary"
+          android:textSize="13sp" />
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="Cập nhật nhanh chế độ dinh dưỡng &amp; thói quen"
-        android:textColor="@color/text_secondary"
-        android:textSize="13sp" />
-
-    <LinearLayout
-        android:id="@+id/btnQuickAddFood"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/bg_input_field"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="14dp">
-
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_pill_badge"
-            android:gravity="center"
-            android:text="🥗"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thêm món ăn vào nhật ký"
-                android:textColor="@color/text_primary"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tìm kiếm món ăn, ước tính calo &amp; macros"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="›"
-            android:textColor="@color/text_muted"
-            android:textSize="22sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/btnQuickAddExercise"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_input_field"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="14dp">
-
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_pill_badge_orange"
-            android:gravity="center"
-            android:text="🏃"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thêm bài tập vận động"
-                android:textColor="@color/text_primary"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chạy bộ, gym, đạp xe, bơi lội..."
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="›"
-            android:textColor="@color/text_muted"
-            android:textSize="22sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/btnQuickLogWeight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_input_field"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="14dp">
-
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_pill_badge"
-            android:gravity="center"
-            android:text="⚖️"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ghi nhận cân nặng hôm nay"
-                android:textColor="@color/text_primary"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cập nhật tiến trình &amp; tự động tính BMI"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="›"
-            android:textColor="@color/text_muted"
-            android:textSize="22sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/btnQuickAddWater"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/bg_input_field"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="14dp">
-
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_pill_badge"
-            android:gravity="center"
-            android:text="💧"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Uống nước (+250 ml)"
-                android:textColor="@color/text_primary"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Duy trì cơ thể đủ nước cả ngày"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+250ml"
-            android:textColor="@color/accent_blue"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
+        android:text="›"
+        android:textColor="@color/text_muted"
+        android:textSize="22sp" />
+  </LinearLayout>
+  <com.google.android.material.button.MaterialButton
+      android:id="@+id/btnQuickCancel"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_marginTop="18dp"
+      android:text="Hủy"
+      android:textAllCaps="false"
+      android:textSize="15sp"
+      android:textStyle="bold"
+      android:textColor="@color/white"
+      app:backgroundTint="@color/primary_green"
+      app:cornerRadius="16dp" />
 </LinearLayout>

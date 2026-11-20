@@ -1,108 +1,143 @@
 package com.example.auraplate.ui.food
 
+import android.graphics.Color
+import android.content.res.Resources
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.Gravity
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.auraplate.R
-import com.example.auraplate.adapter.FoodAdapter
-import com.example.auraplate.data.model.FoodItem
-import com.example.auraplate.data.repository.MockDataRepository
-import com.example.auraplate.databinding.ActivityAddFoodBinding
+import com.example.auraplate.ui.dialog.FoodSearchDialog
+import com.example.auraplate.ui.linh.LinhDataStore
+import com.example.auraplate.ui.linh.LinhFood
+import com.example.auraplate.utils.applySystemBars
 
+/** 08_ThemMonAn: chọn bữa, tìm món, thêm / giảm / xóa khẩu phần và lưu. */
 class AddFoodActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityAddFoodBinding
-    private lateinit var repository: MockDataRepository
-    private lateinit var allFoods: List<FoodItem>
-    private val filteredFoods = ArrayList<FoodItem>()
-    private lateinit var adapter: FoodAdapter
-    private var selectedCategory = "Tất cả"
+    companion object {
+        const val EXTRA_MEAL_TYPE = "meal_type"
+        const val EXTRA_DATE = "meal_date"
+    }
+    private val quantities = linkedMapOf<String, Int>()
+    private var mealType = LinhDataStore.BREAKFAST
+    private var date = LinhDataStore.todayKey()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddFoodBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_add_food)
+        applySystemBars(findViewById(android.R.id.content))
 
-        repository = MockDataRepository.getInstance()
-        allFoods = repository.getFoodDatabase()
-        filteredFoods.addAll(allFoods)
+        mealType = intent.getStringExtra(EXTRA_MEAL_TYPE) ?: LinhDataStore.BREAKFAST
+        date = intent.getStringExtra(EXTRA_DATE) ?: LinhDataStore.todayKey()
 
-        setupRecyclerView()
-        setupListeners()
-    }
-
-    private fun setupRecyclerView() {
-        binding.rvSearchFoods.layoutManager = LinearLayoutManager(this)
-        adapter = FoodAdapter(filteredFoods) { item ->
-            repository.addLoggedFood(item)
-            Toast.makeText(
-                this,
-                "✅ Đã thêm: ${item.name} (+${item.calories} kcal)",
-                Toast.LENGTH_SHORT
-            ).show()
-            finish()
+        findViewById<View>(R.id.foodBack).setOnClickListener { finish() }
+        val buttons = listOf(
+            Triple(R.id.foodMealBreakfast, LinhDataStore.BREAKFAST, 0),
+            Triple(R.id.foodMealLunch, LinhDataStore.LUNCH, 0),
+            Triple(R.id.foodMealDinner, LinhDataStore.DINNER, 0),
+            Triple(R.id.foodMealSnack, LinhDataStore.SNACK, 0)
+        )
+        buttons.forEach { (id, type, _) ->
+            findViewById<View>(id).setOnClickListener { mealType = type; refreshMealTabs() }
         }
-        binding.rvSearchFoods.adapter = adapter
-    }
-
-    private fun setupListeners() {
-        binding.btnBackAddFood.setOnClickListener { finish() }
-
-        binding.btnClearSearch.setOnClickListener {
-            binding.edtSearchFood.setText("")
-            filterList()
+        findViewById<View>(R.id.foodOpenSearch).setOnClickListener {
+            FoodSearchDialog().show(supportFragmentManager, "food_search")
         }
-
-        binding.edtSearchFood.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                binding.btnClearSearch.visibility = if ((s?.length ?: 0) > 0) View.VISIBLE else View.GONE
-                filterList()
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
-        binding.chipAll.setOnClickListener { selectCategory("Tất cả", binding.chipAll) }
-        binding.chipNoodle.setOnClickListener { selectCategory("Món nước", binding.chipNoodle) }
-        binding.chipRice.setOnClickListener { selectCategory("Cơm / Mì", binding.chipRice) }
-        binding.chipMeat.setOnClickListener { selectCategory("Thịt / Cá", binding.chipMeat) }
-        binding.chipVeggie.setOnClickListener { selectCategory("Rau củ", binding.chipVeggie) }
-    }
-
-    private fun selectCategory(cat: String, activeChip: TextView) {
-        selectedCategory = cat
-        val chips = arrayOf(binding.chipAll, binding.chipNoodle, binding.chipRice, binding.chipMeat, binding.chipVeggie)
-        for (c in chips) {
-            if (c == activeChip) {
-                c.setBackgroundResource(R.drawable.bg_segment_active)
-                c.setTextColor(ContextCompat.getColor(this, R.color.white))
+        supportFragmentManager.setFragmentResultListener(LinhDataStore.RESULT_FOOD, this) { _, bundle ->
+            bundle.getString("food_id")?.let { addFood(it) }
+        }
+        findViewById<View>(R.id.foodQuickRice).setOnClickListener { addFood("rice") }
+        findViewById<View>(R.id.foodQuickEgg).setOnClickListener { addFood("egg") }
+        findViewById<View>(R.id.foodQuickBroccoli).setOnClickListener { addFood("broccoli") }
+        findViewById<View>(R.id.foodSave).setOnClickListener {
+            if (quantities.isEmpty()) {
+                Toast.makeText(this, "Hãy chọn ít nhất một món ăn", Toast.LENGTH_SHORT).show()
             } else {
-                c.setBackgroundResource(R.drawable.bg_pill_badge)
-                c.setTextColor(ContextCompat.getColor(this, R.color.text_secondary))
+                LinhDataStore.saveMeal(this, date, mealType, quantities)
+                Toast.makeText(this, "Đã lưu bữa $mealType", Toast.LENGTH_SHORT).show()
+                finish()
             }
         }
-        filterList()
+        refreshMealTabs()
+        renderSelectedFoods()
     }
 
-    private fun filterList() {
-        val query = binding.edtSearchFood.text.toString().trim().lowercase()
-        filteredFoods.clear()
-
-        for (item in allFoods) {
-            val matchCat = selectedCategory == "Tất cả" || item.category.contains(selectedCategory)
-            val matchQuery = query.isEmpty() || item.name.lowercase().contains(query)
-            if (matchCat && matchQuery) {
-                filteredFoods.add(item)
-            }
+    private fun refreshMealTabs() {
+        val styles = listOf(
+            Triple(R.id.foodMealBreakfast, LinhDataStore.BREAKFAST, R.drawable.bg_meal_breakfast to R.drawable.bg_meal_breakfast_selected),
+            Triple(R.id.foodMealLunch, LinhDataStore.LUNCH, R.drawable.bg_meal_lunch to R.drawable.bg_meal_lunch_selected),
+            Triple(R.id.foodMealDinner, LinhDataStore.DINNER, R.drawable.bg_meal_dinner to R.drawable.bg_meal_dinner_selected),
+            Triple(R.id.foodMealSnack, LinhDataStore.SNACK, R.drawable.bg_meal_snack to R.drawable.bg_meal_snack_selected)
+        )
+        styles.forEach { (viewId, name, backgrounds) ->
+            findViewById<View>(viewId).setBackgroundResource(
+                if (name == mealType) backgrounds.second else backgrounds.first
+            )
         }
-
-        binding.tvFoodCountHeader.text = "Tìm thấy ${filteredFoods.size} món ăn phù hợp"
-        adapter.notifyDataSetChanged()
     }
+
+    private fun addFood(id: String) {
+        if (LinhDataStore.foodById(id) == null) return
+        quantities[id] = (quantities[id] ?: 0) + 1
+        renderSelectedFoods()
+    }
+    private fun changeQuantity(id: String, delta: Int) {
+        val next = (quantities[id] ?: 0) + delta
+        if (next <= 0) quantities.remove(id) else quantities[id] = next
+        renderSelectedFoods()
+    }
+
+    private fun renderSelectedFoods() {
+        val container = findViewById<LinearLayout>(R.id.foodSelectedContainer)
+        container.removeAllViews()
+        if (quantities.isEmpty()) {
+            container.addView(makeLabel("Chưa chọn món nào. Nhấn (+) hoặc tìm món ăn.", 13, false,
+                "#819588").apply { gravity = Gravity.CENTER; setPadding(4.dp(), 25.dp(), 4.dp(), 25.dp()) })
+        }
+        quantities.forEach { (id, qty) ->
+            val food = LinhDataStore.foodById(id) ?: return@forEach
+            val row = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER_VERTICAL
+                setPadding(6.dp(), 9.dp(), 6.dp(), 9.dp())
+            }
+            row.addView(ImageView(this).apply {
+                setImageResource(LinhDataStore.foodImage(food.id))
+                scaleType = ImageView.ScaleType.FIT_CENTER
+                contentDescription = food.name
+            }, LinearLayout.LayoutParams(45.dp(), 45.dp()))
+            val name = makeLabel(" ${food.name}\n ${food.kcal * qty} kcal / $qty phần", 13, true)
+            row.addView(name, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
+            row.addView(actionText("−") { changeQuantity(id, -1) })
+            row.addView(makeLabel("$qty", 13, true).apply { gravity = Gravity.CENTER },
+                LinearLayout.LayoutParams(26.dp(), 40.dp()))
+            row.addView(actionText("+") { changeQuantity(id, 1) })
+            row.addView(actionText("✕") { quantities.remove(id); renderSelectedFoods() })
+            container.addView(row)
+            container.addView(View(this).apply { setBackgroundColor(Color.parseColor("#EDF3EE")) },
+                LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1.dp()))
+        }
+        val kcal = quantities.entries.sumOf { (id, qty) ->
+            (LinhDataStore.foodById(id)?.kcal ?: 0) * qty
+        }
+        findViewById<TextView>(R.id.foodTotalKcal).text = "$kcal kcal"
+    }
+
+    private fun makeLabel(value: String, size: Int, bold: Boolean, color: String = "#1F3D2E") =
+        TextView(this).apply {
+            text = value; textSize = size.toFloat(); setTextColor(Color.parseColor(color))
+            if (bold) setTypeface(typeface, android.graphics.Typeface.BOLD)
+        }
+    private fun actionText(label: String, listener: () -> Unit) =
+        makeLabel(label, 20, true, "#267D4C").apply {
+            gravity = Gravity.CENTER
+            layoutParams = LinearLayout.LayoutParams(34.dp(), 40.dp())
+            setOnClickListener { listener() }
+            contentDescription = label
+        }
+    private fun Int.dp(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 }

@@ -1,16 +1,17 @@
 package com.example.auraplate.ui.dialog
 
 import android.content.Intent
+import android.graphics.Color
+import android.widget.FrameLayout
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.example.auraplate.data.local.AppPreferences
 import com.example.auraplate.databinding.BottomSheetQuickAddBinding
 import com.example.auraplate.ui.exercise.AddExerciseActivity
 import com.example.auraplate.ui.food.AddFoodActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class QuickAddBottomSheet : BottomSheetDialogFragment() {
 
@@ -34,24 +35,17 @@ class QuickAddBottomSheet : BottomSheetDialogFragment() {
             startActivity(Intent(requireContext(), AddExerciseActivity::class.java))
         }
 
-        binding.btnQuickLogWeight.setOnClickListener {
-            dismiss()
-            val dialog = UpdateWeightDialog()
-            dialog.show(parentFragmentManager, "UpdateWeightDialog")
-        }
-
-        binding.btnQuickAddWater.setOnClickListener {
-            val prefs = AppPreferences(requireContext())
-            prefs.addWater(250)
-            Toast.makeText(
-                requireContext(),
-                "💧 Đã ghi nhận +250ml nước! Đạt ${prefs.getWaterIntakeMl()}ml / 2000ml",
-                Toast.LENGTH_SHORT
-            ).show()
-            dismiss()
-        }
+        binding.btnQuickCancel.setOnClickListener { dismiss() }
 
         return binding.root
+    }
+
+    /** Bỏ nền chữ nhật mặc định của BottomSheet để thấy góc bo theo Figma. */
+    override fun onStart() {
+        super.onStart()
+        (dialog as? BottomSheetDialog)
+            ?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
+            ?.setBackgroundColor(Color.TRANSPARENT)
     }
 
     override fun onDestroyView() {

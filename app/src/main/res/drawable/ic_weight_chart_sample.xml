@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="280dp"
+    android:height="140dp"
+    android:viewportWidth="280"
+    android:viewportHeight="140">
+
+    <!-- Đường liền nối 4 điểm thực tế -->
+    <path
+        android:pathData="M28,28 L84,42 L140,56 L196,72"
+        android:strokeColor="#214632"
+        android:strokeLineCap="round"
+        android:strokeWidth="3" />
+
+    <!-- Đường nét đứt nối tới điểm mục tiêu -->
+    <path
+        android:pathData="M204,76 L246,96"
+        android:strokeColor="#214632"
+        android:strokeLineCap="round"
+        android:strokeWidth="3" />
+
+    <!-- 4 chấm tròn thực tế -->
+    <path android:fillColor="#214632" android:pathData="M28,28 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+    <path android:fillColor="#214632" android:pathData="M84,42 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+    <path android:fillColor="#214632" android:pathData="M140,56 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+    <path android:fillColor="#214632" android:pathData="M196,72 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+
+    <!-- Chấm tròn mục tiêu -->
+    <path android:fillColor="#DCE8E0" android:pathData="M252,99 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+</vector>

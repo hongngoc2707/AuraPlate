@@ -5,101 +5,54 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.auraplate.MainActivity
 import com.example.auraplate.data.local.AppPreferences
-import com.example.auraplate.data.repository.MockDataRepository
 import com.example.auraplate.databinding.FragmentHomeBinding
 import com.example.auraplate.ui.food.AddFoodActivity
-import com.example.auraplate.ui.goal.GoalEvaluationActivity
+import com.example.auraplate.ui.linh.LinhDataStore
+import com.example.auraplate.ui.goal.GoalSettingActivity
+import com.example.auraplate.ui.goal.WeightProgressActivity
 
 class HomeFragment : Fragment() {
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var preferences: AppPreferences
-    private lateinit var repository: MockDataRepository
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        preferences = AppPreferences(requireContext())
-        repository = MockDataRepository.getInstance()
-
-        loadHomeData()
-        setupListeners()
-
+        binding.ivHomeAvatar.setOnClickListener { (activity as? MainActivity)?.selectTab(3) }
+        binding.quickDiet.setOnClickListener { (activity as? MainActivity)?.selectTab(1) }
+        binding.quickExercise.setOnClickListener { (activity as? MainActivity)?.selectTab(2) }
+        binding.quickGoal.setOnClickListener { startActivity(Intent(requireContext(), GoalSettingActivity::class.java)) }
+        binding.quickProgress.setOnClickListener { startActivity(Intent(requireContext(), WeightProgressActivity::class.java)) }
+        binding.btnHomeAddFood.setOnClickListener { startActivity(Intent(requireContext(), AddFoodActivity::class.java)) }
+        // Two recent-log cards are summaries only; bottom navigation opens the full history.
+        render()
         return binding.root
     }
-
-    private fun loadHomeData() {
+    private fun render() {
         if (_binding == null) return
-        val user = preferences.getUser()
-        var lastName = user.name
-        if (lastName.contains(" ")) {
-            val parts = lastName.split(" ")
-            lastName = parts[parts.size - 1]
-        }
-        binding.tvHomeGreeting.text = "Chào buổi sáng, $lastName! 👋"
-
-        val goalCal = 1700
-        val consumed = repository.getTodayTotalCaloriesIn()
-        val burned = repository.getTodayTotalCaloriesBurned()
-        val remaining = goalCal - consumed + burned
-
-        binding.tvCaloriesGoal.text = String.format("%,d", goalCal)
-        binding.tvCaloriesConsumed.text = String.format("%,d", consumed)
-        binding.tvCaloriesBurned.text = String.format("%,d", burned)
-        binding.tvCaloriesRemaining.text = String.format("%,d", maxOf(0, remaining))
-
-        val percent = minOf(100, Math.round(consumed.toFloat() / goalCal * 100))
-        binding.progressCalorieCircle.progress = percent
-
-        binding.tvWaterAmount.text = "${preferences.getWaterIntakeMl()} / 2,000 ml"
+        val prefs = AppPreferences(requireContext())
+        val user = prefs.getUser()
+        binding.tvHomeGreeting.text = "Xin chào, ${user.name.substringAfterLast(' ')}!"
+        binding.tvLatestWeight.text = if (prefs.hasSavedProfile()) "${user.currentWeightKg} kg" else "-- kg"
+        val loggedMeals = LinhDataStore.mealsFor(requireContext(), LinhDataStore.todayKey())
+        val loggedExercises = LinhDataStore.exercisesFor(requireContext(), LinhDataStore.todayKey())
+        val calories = loggedMeals.sumOf { it.kcal }
+        val burned = loggedExercises.sumOf { it.kcal }
+        binding.tvCaloriesConsumed.text = "$calories"
+        binding.tvCaloriesBurned.text = "$burned kcal"
+        binding.progressCalorieCircle.progress = ((calories.toFloat() / 1700) * 100).toInt().coerceIn(0,100)
+        val recentMeal = loggedMeals.lastOrNull()
+        binding.tvLatestFood.text = recentMeal?.let { "Bữa ${it.mealType.lowercase()} · ${it.name}" }
+            ?: "Chưa có bữa ăn nào"
+        binding.tvLatestFoodKcal.text = recentMeal?.let { "${it.kcal} kcal · ${it.quantity} khẩu phần" }
+            ?: "-- kcal"
+        val recentActivity = loggedExercises.lastOrNull()
+        binding.tvLatestExercise.text = recentActivity?.let { "${it.name} · ${it.minutes} phút" }
+            ?: "Chưa có hoạt động"
+        binding.tvLatestExerciseKcal.text = recentActivity?.let { "${it.kcal} kcal tiêu hao" }
+            ?: "-- kcal"
     }
-
-    private fun setupListeners() {
-        if (_binding == null) return
-
-        binding.btnAddWaterHome.setOnClickListener {
-            preferences.addWater(250)
-            _binding?.tvWaterAmount?.text = "${preferences.getWaterIntakeMl()} / 2,000 ml"
-            Toast.makeText(requireContext(), "💧 Đã ghi nhận thêm 250ml nước!", Toast.LENGTH_SHORT).show()
-        }
-
-        // Click Banner Goal -> Mở Màn hình 12 (Đánh giá tiến độ mục tiêu)
-        binding.cardHomeGoalBanner.setOnClickListener {
-            val intent = Intent(requireContext(), GoalEvaluationActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Click xem tất cả bữa ăn -> Chuyển sang Tab Ăn uống
-        binding.tvViewAllMeals.setOnClickListener {
-            (activity as? MainActivity)?.selectTab(1)
-        }
-
-        val openAddFood = View.OnClickListener {
-            val intent = Intent(requireContext(), AddFoodActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.cardMealBreakfast.setOnClickListener(openAddFood)
-        binding.cardMealLunch.setOnClickListener(openAddFood)
-        binding.cardMealDinner.setOnClickListener(openAddFood)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadHomeData()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun onResume() { super.onResume(); render() }
+    override fun onDestroyView() { _binding = null; super.onDestroyView() }
 }
